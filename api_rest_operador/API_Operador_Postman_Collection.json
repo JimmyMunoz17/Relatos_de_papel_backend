@@ -91,6 +91,33 @@
 			}
 		},
 		{
+			"name": "Probar Compra con Actualización de Stock",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"libroId\": 3,\n    \"cantidad\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8089/compras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"compras"
+					]
+				}
+			}
+		},
+		{
 			"name": "Eliminar Compra",
 			"request": {
 				"method": "DELETE",

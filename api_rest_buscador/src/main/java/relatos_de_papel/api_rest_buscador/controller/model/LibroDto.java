@@ -8,6 +8,7 @@ import lombok.*;
 @Builder
 @ToString
 public class LibroDto {
+    private Long id;
     private String titulo;
     private String autor;
     private String fecha_publicacion;
@@ -15,8 +16,10 @@ public class LibroDto {
     private String isbn;
     private Integer valoracion;
     private Boolean visibilidad;
+    private Integer stock;
 
-    public LibroDto(Boolean visibilidad, Integer valoracion, String isbn, String categoria, String fecha_publicacion, String autor, String titulo) {
+    public LibroDto(Long id, Boolean visibilidad, Integer valoracion, String isbn, String categoria, String fecha_publicacion, String autor, String titulo, Integer stock) {
+        this.id = id;
         this.visibilidad = visibilidad;
         this.valoracion = valoracion;
         this.isbn = isbn;
@@ -24,6 +27,7 @@ public class LibroDto {
         this.fecha_publicacion = fecha_publicacion;
         this.autor = autor;
         this.titulo = titulo;
+        this.stock = stock;
     }
 
     public String getTitulo() {
@@ -80,5 +84,21 @@ public class LibroDto {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Integer getStock() {
+        return stock;
+    }
+    
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

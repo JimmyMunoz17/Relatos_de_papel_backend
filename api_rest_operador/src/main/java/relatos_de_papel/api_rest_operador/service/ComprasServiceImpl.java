@@ -80,6 +80,15 @@ public class ComprasServiceImpl implements ComprasService {
         
         log.info("Compra registrada exitosamente con ID: {}", compraGuardada.getIdCompra());
         
+        // Actualizar stock en el microservicio buscador
+        boolean stockActualizado = buscadorService.actualizarStock(request.getLibroId(), request.getCantidad());
+        if (!stockActualizado) {
+            log.warn("No se pudo actualizar el stock del libro ID: {}, pero la compra se registró correctamente", 
+                request.getLibroId());
+        } else {
+            log.info("Stock actualizado correctamente para libro ID: {}", request.getLibroId());
+        }
+        
         // Convertir a DTO para respuesta
         return CompraDto.builder()
             .idCompra(compraGuardada.getIdCompra())

@@ -42,6 +42,9 @@ public class Libro {
 
     @Column( name = Consts.VISIBILIDAD)
     private Boolean visibilidad;
+    
+    @Column( name = "stock")
+    private Integer stock;
 
 
 
@@ -53,6 +56,9 @@ public class Libro {
         this.isbn = libroDto.getIsbn();
         this.valoracion = libroDto.getValoracion();
         this.visibilidad = libroDto.getVisibilidad();
+        if (libroDto.getStock() != null) {
+            this.stock = libroDto.getStock();
+        }
     }
 
 }

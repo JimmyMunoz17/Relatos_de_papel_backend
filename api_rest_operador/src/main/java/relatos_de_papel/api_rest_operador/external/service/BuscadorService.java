@@ -53,4 +53,32 @@ public class BuscadorService {
         LibroDto libro = validarLibro(libroId);
         return libro != null;
     }
+    
+    public boolean actualizarStock(Long libroId, Long cantidad) {
+        try {
+            String url = "http://localhost:8088/libros/" + libroId + "/stock?cantidad=" + cantidad;
+            
+            log.info("Actualizando stock del libro ID {} con cantidad: {}", libroId, cantidad);
+            
+            ResponseEntity<LibroDto> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                null,
+                LibroDto.class
+            );
+            
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                log.info("Stock actualizado exitosamente para libro ID: {}", libroId);
+                return true;
+            } else {
+                log.error("Error al actualizar stock - Respuesta: {}", response.getStatusCode());
+                return false;
+            }
+            
+        } catch (Exception e) {
+            log.error("Error al comunicarse con el servicio buscador para actualizar stock del libro {}: {}", 
+                libroId, e.getMessage());
+            return false;
+        }
+    }
 }

@@ -90,4 +90,16 @@ public class LibrosController {
         Boolean removed = libroService.removeLibro(libroId);
         return Boolean.TRUE.equals(removed) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
+    
+    @PutMapping("/libros/{libroId}/stock")
+    public ResponseEntity<Libro> updateStock(
+            @RequestHeader Map<String, String> headers,
+            @PathVariable String libroId,
+            @RequestParam Integer cantidad
+    ) {
+        log.info("headers: {}, actualizando stock del libro ID: {} con cantidad: {}", headers, libroId, cantidad);
+        
+        Libro updated = libroService.updateStock(libroId, cantidad);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    }
 }
