@@ -149,5 +149,21 @@ public class LibrosServiceImpl implements LibrosService {
             return null;
         }
     }
+    
+    @Override
+    public Libro updateStock(String libroId, Integer cantidad) {
+        Libro libro = repository.getById(Long.valueOf(libroId));
+        if (libro != null) {
+            Integer stockActual = libro.getStock() != null ? libro.getStock() : 0;
+            Integer nuevoStock = Math.max(0, stockActual - cantidad);
+            libro.setStock(nuevoStock);
+            repository.save(libro);
+            log.info("Stock actualizado para libro ID {}: {} -> {}", libroId, stockActual, nuevoStock);
+            return libro;
+        } else {
+            log.error("Libro no encontrado con ID: {}", libroId);
+            return null;
+        }
+    }
 
 }

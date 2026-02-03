@@ -27,5 +27,7 @@ public interface LibrosService {
     Libro updateLibro(String libroId, String updateRequest);
 
     Libro updatelibro(String libroId, LibroDto updateRequest);
+    
+    Libro updateStock(String libroId, Integer cantidad);
 }
 
