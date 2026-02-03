@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "API REST Operador",
+		"description": "API para gestionar compras de libros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener Compras",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/compras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"compras"
+					]
+				}
+			}
+		},
+		{
+			"name": "Obtener Compra por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/compras/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"compras",
+						"1"
+					]
+				}
+			}
+		},
+		{
+			"name": "Obtener Compras por Fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/compras/fecha/2026-02-03",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"compras",
+						"fecha",
+						"2026-02-03"
+					]
+				}
+			}
+		},
+		{
+			"name": "Registrar Compra",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"libroId\": 1,\n    \"cantidad\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8089/compras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"compras"
+					]
+				}
+			}
+		},
+		{
+			"name": "Eliminar Compra",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/compras/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"compras",
+						"1"
+					]
+				}
+			}
+		}
+	]
+}
