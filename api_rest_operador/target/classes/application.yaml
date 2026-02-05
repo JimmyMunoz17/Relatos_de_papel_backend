@@ -29,3 +29,21 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: "0.0.1-SNAPSHOT"
+    description: "API REST Operador para registrar compras"
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+  info:
+    env:
+      enabled: true
