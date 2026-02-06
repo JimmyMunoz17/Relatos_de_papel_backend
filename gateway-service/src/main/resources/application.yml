@@ -1,0 +1,86 @@
+# ======================================
+# CONFIGURACIÓN GENERAL
+# ======================================
+server:
+  port: 8080
+
+# ======================================
+# EUREKA CLIENT
+# (lo dejamos para registro, pero NO para ruteo)
+# ======================================
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: ${HOSTNAME:localhost}
+
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+
+# ======================================
+# SPRING + GATEWAY   (estructura correcta)
+# ======================================
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+
+      #  DESACTIVAMOS DISCOVERY AUTOMÁTICO PARA EVITAR CONFLICTOS
+      discovery:
+        locator:
+          enabled: false
+
+      #  RUTAS MANUALES (las que sí te van a funcionar)
+      routes:
+        - id: buscador-directo
+          uri: http://localhost:8088
+          predicates:
+            - Path=/api_rest_buscador/**
+          filters:
+            - RewritePath=/api_rest_buscador/(?<segment>.*), /${segment}
+
+        - id: operador-directo
+          uri: http://localhost:8089
+          predicates:
+            - Path=/api_rest_operador/**
+          filters:
+            - RewritePath=/api_rest_operador/(?<segment>.*), /${segment}
+
+      # 🔹 FILTROS POR DEFECTO
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+      # 🔹 CONFIGURACIÓN CORS GLOBAL
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: "${ALLOWED_ORIGINS:*}"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+
+# ======================================
+# ACTUATOR
+# ======================================
+management:
+  endpoint:
+    gateway:
+      enabled: true
+      access: read_only
+
+  endpoints:
+    web:
+      exposure:
+        include:
+          - gateway
+          - health
+          - info
+          - mappings
